@@ -1,0 +1,8 @@
+@Test.Api_HostAddress = http://localhost:5000
+@Test.AccessToken = token
+
+GET {{Test.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+Authorization: Bearer {{Test.AccessToken}}
+
+###
