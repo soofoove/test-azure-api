@@ -28,6 +28,11 @@ on:
   push:
     branches: [ "main" ]
   workflow_dispatch:
+    inputs:
+      skip_build:
+        description: 'If true, skip the build process'
+        required: false
+        default: 'false'
 
 permissions:
   id-token: write
@@ -36,6 +41,7 @@ permissions:
 jobs:
   build:
     name: Build
+    if: ${{ github.event_name != 'workflow_dispatch' || (github.event.inputs.skip_build != 'true') }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
