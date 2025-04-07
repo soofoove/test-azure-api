@@ -52,7 +52,7 @@ app.MapGet("/weatherforecast", (HttpContext context) =>
 .WithName("GetWeatherForecast")
 .RequireAuthorization();
 
-app.MapGet("/", () => "deploy works");
+app.MapGet("/", () => "deploy works 2");
 
 app.Run();
 
