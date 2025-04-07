@@ -52,6 +52,8 @@ app.MapGet("/weatherforecast", (HttpContext context) =>
 .WithName("GetWeatherForecast")
 .RequireAuthorization();
 
+app.MapGet("/", () => "deploy works");
+
 app.Run();
 
 record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
