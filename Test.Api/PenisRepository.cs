@@ -1,8 +1,11 @@
 
-public class PenisRepository : IPenisRepository
+using Microsoft.EntityFrameworkCore;
+
+public class PenisRepository(PenisDbContext dbContext) : IPenisRepository
 {
-    public Task<string> GetAsync(CancellationToken cancellationToken)
+    public async Task<string> GetAsync(CancellationToken cancellationToken)
     {
-        return Task.FromResult("zhopa 1");
+        var penis = await dbContext.Penises.LastAsync(cancellationToken);
+        return penis.Value;
     }
 }

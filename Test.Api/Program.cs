@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.EntityFrameworkCore;
 using Test.Api;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -22,6 +23,10 @@ builder.Services.AddAuthorizationBuilder()
             .RequireClaim(ClaimsConstants.Scope, "Weather.Read"));
 
 builder.Services.AddScoped<IPenisRepository, PenisRepository>();
+builder.Services.AddDbContext<PenisDbContext>(options => 
+{
+    options.UseSqlServer(builder.Configuration.GetConnectionString("AzureSql"));
+});
 
 // setup pipeline
 var app = builder.Build();
