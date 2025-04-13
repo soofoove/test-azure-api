@@ -1,0 +1,17 @@
+name: Show OIDC Token
+
+on:
+  workflow_dispatch:
+
+jobs:
+  show-token:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Request ID Token
+        id: oidc
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const token = await core.getIDToken("api://AzureADTokenExchange");
+            console.log("ID Token:");
+            console.log(token);
