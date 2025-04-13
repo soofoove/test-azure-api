@@ -20,7 +20,10 @@ builder.Services.AddAuthorizationBuilder()
   .AddPolicy("weather", policy =>
         policy
             .RequireClaim(ClaimsConstants.Scope, "Weather.Read"));
-    
+
+builder.Services.AddScoped<IPenisRepository, PenisRepository>();
+
+// setup pipeline
 var app = builder.Build();
 
 app.UseSwagger();
@@ -54,7 +57,12 @@ app.MapGet("/weatherforecast", (HttpContext context) =>
 .WithName("GetWeatherForecast")
 .RequireAuthorization();
 
-app.MapGet("penis", () => "zhopa");
+app.MapGet("penis", async (IPenisRepository penisRepository, CancellationToken cancellationToken) => 
+{
+    var penis = await penisRepository.GetAsync(cancellationToken);
+
+    return TypedResults.Ok(penis);
+});
 
 app.Run();
 
