@@ -3,6 +3,10 @@ name: Show OIDC Token
 on:
   workflow_dispatch:
 
+permissions:
+  contents: read
+  id-token: write
+
 jobs:
   show-token:
     runs-on: ubuntu-latest
